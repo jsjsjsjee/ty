@@ -80,7 +80,7 @@ def allowed_file(filename):
 def fetch_news(query):
     """Fetch news using a public API like NewsAPI."""
     try:
-        api_key = "449b98e7d52e49ee901f800a11ad5db1"  # Ensure this key is valid
+        api_key = "e27ef14ee8f94c75bcae63bb42eb6f21"  # Ensure this key is valid
         url = (
             f"https://newsapi.org/v2/everything?"
             f"q={query}&apiKey={api_key}&pageSize=10&language=en&sortBy=relevancy"

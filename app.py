@@ -78,20 +78,20 @@ def allowed_file(filename):
     return "." in filename and filename.rsplit(".", 1)[1].lower() in app.config["ALLOWED_EXTENSIONS"]
 
 def fetch_news(query):
-    """Fetch news using a public API like NewsAPI."""
+    """Fetch news using NewsAI API."""
     try:
-        api_key = "e27ef14ee8f94c75bcae63bb42eb6f21"  # Ensure this key is valid
+        api_key = "e27ef14ee8f94c75bcae63bb42eb6f21"  # Replace with your NewsAI API key
         url = (
-            f"https://newsapi.org/v2/everything?"
-            f"q={query}&apiKey={api_key}&pageSize=10&language=en&sortBy=relevancy"
+            f"https://api.newsai.com/v1/news?"
+            f"query={query}&apikey={api_key}"
         )
-        print(f"Making request to NewsAPI with query: {query}")
+        print(f"Making request to NewsAI with query: {query}")
         
         response = requests.get(url)
         print(f"Response status code: {response.status_code}")
         
         if response.status_code != 200:
-            error_msg = f"NewsAPI error: {response.json().get('message', 'Unknown error')}"
+            error_msg = f"NewsAI error: {response.json().get('message', 'Unknown error')}"
             print(error_msg)
             raise Exception(error_msg)
         
@@ -106,7 +106,7 @@ def fetch_news(query):
                     "title": article["title"].strip(),
                     "description": article["description"].strip(),
                     "url": article["url"],
-                    "urlToImage": article.get("urlToImage", ""),
+                    "urlToImage": article.get("image_url", ""),
                     "source": article.get("source", {}).get("name", "Unknown Source")
                 }
                 valid_articles.append(cleaned_article)
